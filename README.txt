@@ -1,1 +1,0 @@
-Displaying audit-trails JSON Objects in a readable way.
