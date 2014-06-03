@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Displaying JSON Objects</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js" type="text/javascript"></script>
-	<script src="app.js" type="text/javascript"></script>
-	<script src="maincontroller.js" type="text/javascript"></script>
-</head>
-
-<body>
-	<div id="content" ng-app="DisplayApp" ng-controller="MainController">
-		<table>
-			<tr ng-repeat='content in messages'>
-				<td>{{content.name}} "{{content.message}}" {{content.action}}
-				</td>
-			</tr>
-		</table>
-	</div>
-</body>
+	<head>	
+		<title>Displaying JSON Objects</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js" type="text/javascript"></script>
+		<script src="app.js" type="text/javascript"></script>
+		<script src="maincontroller.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div id="content" ng-app="DisplayApp" ng-controller="MainController">
+			<div class="searchBar">
+				Search <select ng-model='selectedElement' ng-options='v for v in things'></select>
+				<input type="text" ng-model="searchString" placeholder="Enter any search term" />
+				<!-- take this off when you're done testing-->
+				 {{searchString}}
+			</div>
+			<div>
+				<table id="results">
+					<tr ng-repeat='content in messages' | searchFor:searchString>
+						<td>{{content.name}} "{{content.message}}" {{content.action}}
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
 </html>
