@@ -9,15 +9,14 @@
 	<body>
 		<div id="content" ng-app="DisplayApp" ng-controller="MainController">
 			<div class="searchBar">
-				Search <select ng-model='selectedElement' ng-options='v for v in things'></select>
+				<!-- Search <select ng-model='selectedElement' ng-options='v for v in things'></select> -->
 				<input type="text" ng-model="searchString" placeholder="Enter any search term" />
-				<!-- take this off when you're done testing-->
-				 {{searchString}}
 			</div>
 			<div>
 				<table id="results">
-					<tr ng-repeat='content in messages' | searchFor:searchString>
-						<td>{{content.name}} "{{content.message}}" {{content.action}}
+					<tr ng-repeat='message in messages | filter:searchString'>
+						<td>
+							{{message.entryKey}}
 						</td>
 					</tr>
 				</table>
