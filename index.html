@@ -2,9 +2,14 @@
 <html>
 	<head>	
 		<title>Displaying JSON Objects</title>
+		<script src="jquery-2.1.1.min.js" type="text/javascript"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js" type="text/javascript"></script>
+		<script src="bootstrap.min.js" type="text/javascript"></script>
+		<script src="underscore.js" type="text/javascript"></script>
 		<script src="app.js" type="text/javascript"></script>
 		<script src="maincontroller.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="stylin.css">
 	</head>
 	<body>
 		<div id="content" ng-app="DisplayApp" ng-controller="MainController">
@@ -12,15 +17,17 @@
 				<!-- Search <select ng-model='selectedElement' ng-options='v for v in things'></select> -->
 				<input type="text" ng-model="searchString" placeholder="Enter any search term" />
 			</div>
+
 			<div>
-				<table id="results">
-					<tr ng-repeat='message in messages | filter:searchString'>
+				<table id="results" ng-repeat='parsedMessage in parsedMessages'>
+					<tr ng-repeat='parsed in parsedMessage | filter:searchString'>
 						<td>
-							{{message.entryKey}}
+							{{parsed.title}}: {{parsed.value}}
 						</td>
 					</tr>
 				</table>
 			</div>
+
 		</div>
 	</body>
 </html>
