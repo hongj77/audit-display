@@ -29,13 +29,13 @@ app.controller("MainController", function($scope) {
 						},
 
 						{
-							"entryKey":"BccccBasdasdBBBBB",
+							"entryKey":"",
 							"eventEntry":[
 											{
 												"tag":"EventStateChange",
 												"contents":{
 																"stateChangeMsg":"{\"auditUser\":\"hacker1234@gmail.com\",\"auditAction\":\"Delete\",\"auditMessage\":{\"groupName\":\"Admin\"}}",
-																"stateChangeTime":1123132292
+																"stateChangeTime":1121233132292
 															}
 											}
 										]
@@ -49,9 +49,13 @@ app.controller("MainController", function($scope) {
 		var makeMessageArray = function (stringMsg) {
 			var result = [];
 			var inside = {};
+			var inside2 = {};
 			inside.title = "Entry Key";
 			inside.value = msg.entryKey;
+			inside2.title = "Time";
+			inside2.value = msg.eventEntry[0].contents.stateChangeTime;
 			result.push(inside);
+			result.push(inside2);
 
 			_.each(stringMsg, function (value, key) {
 				if (!(value instanceof Object)) {

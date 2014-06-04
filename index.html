@@ -12,15 +12,15 @@
 		<link rel="stylesheet" type="text/css" href="stylin.css">
 	</head>
 	<body>
-		<div id="content" ng-app="DisplayApp" ng-controller="MainController">
-			<div class="searchBar">
-				<!-- Search <select ng-model='selectedElement' ng-options='v for v in things'></select> -->
-				<input type="text" ng-model="searchString" placeholder="Enter any search term" />
-			</div>
+		<div ng-app="DisplayApp" ng-controller="MainController">
+				<div>
+					<input type="text" ng-model="searchString" placeholder="Enter any search term">
+				</div>
+				<hr>
 
 			<div>
-				<table id="results" ng-repeat='parsedMessage in parsedMessages'>
-					<tr ng-repeat='parsed in parsedMessage | filter:searchString'>
+				<table class="table table-hover table-bordered table-condensed"ng-repeat='parsedMessage in parsedMessages | filter:searchString'>
+					<tr ng-repeat='parsed in parsedMessage'>
 						<td>
 							{{parsed.title}}: {{parsed.value}}
 						</td>
