@@ -20,7 +20,7 @@ app.controller("MainController", function($scope) {
 											{
 												"tag":"EventStateChange",
 												"contents":{
-																"stateChangeMsg":"{\"auditUser\":\"hacker1234@gmail.com\",\"auditAction\":\"Delete\",\"auditMessage\":{\"groupName\":\"Admin\"}}",
+																"stateChangeMsg":"{\"auditUser\":\"hackerasd1234@gmail.com\",\"auditAction\":\"Delete\",\"auditMessage\":{\"groupName\":\"Admin\"}}",
 																"stateChangeTime":1123132292
 															}
 											}
@@ -80,7 +80,7 @@ app.controller("MainController", function($scope) {
 			});
 			resultArr.push(formatObject);
 		}
-		return _.flatten(resultArr);
+		return resultArr;
 	}
 
 	$scope.parsedMessages = processMessages($scope.messages);

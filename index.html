@@ -19,14 +19,16 @@
 				<hr>
 
 			<div>
-				<table ng-repeat="message in messages">
-					<tr ng-repeat="parsedMessage in parsedMessages">
+			
+				<table class="table table-hover table-bordered table-condensed" ng-repeat="parsedMessage in parsedMessages | filter:searchString">
+					<tr ng-repeat="parsed in parsedMessage">
 						<td>
-							{{parsedMessage.title}}: {{parsedMessage.value}} 
+							{{parsed.title}}: {{parsed.value}}
 						</td>
 					</tr>
 				</table>
 			</div>
+			
 
 
 <!--
