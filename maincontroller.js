@@ -1,6 +1,5 @@
 app.controller("MainController", function($scope) {
-	$scope.searchString = "";
-	$scope.parsedMessages = [];
+
 	$scope.messages = [
 						{
 							"entryKey":"AAAAAAAAA",
@@ -42,41 +41,48 @@ app.controller("MainController", function($scope) {
 						}
 	];
 
-	_.each($scope.messages, function (msg) {
+	$scope.searchString = "";
+	$scope.parsedMessages = [];
 
-		var parsed = JSON.parse(msg.eventEntry[0].contents.stateChangeMsg);
+	//merges two js objects into one
+	function mergeObj(ob1,ob2) {
+		for (key in ob2) {
+			if (ob2.hasOwnProperty(key))
+				ob1[key] = ob2[key];
+		}
+		return ob1;
+	}
 
-		var makeMessageArray = function (stringMsg) {
-			var result = [];
-			var inside = {};
-			var inside2 = {};
-			inside.title = "Entry Key";
-			inside.value = msg.entryKey;
-			inside2.title = "Time";
-			inside2.value = msg.eventEntry[0].contents.stateChangeTime;
-			result.push(inside);
-			result.push(inside2);
+	//feed in ONE msg, return an object stateChangeMsg
+	function makeObj (msg) {
+		return JSON.parse(msg.eventEntry[0].contents.stateChangeMsg);
+	}
 
-			_.each(stringMsg, function (value, key) {
-				if (!(value instanceof Object)) {
-					var inside = {};
-					inside.title = key;
-					inside.value = value;
-					result.push(inside);
-				}
-				else {
-						_.each(value, function (value, key) {
-						var inside = {};
-						inside.title = key;
-						inside.value = value; 
-						result.push(inside);
-					});
-				}
+	//feed this ONE msg, returns a flattened object of stateChangeMsg
+	function makeFlat(msg) {
+		var obj1 = makeObj(msg); //stateChangeMsg without auditMessage
+		delete obj1.auditMessage; 
+		var obj2 = makeObj(msg).auditMessage; //obj2 auditMessage
+
+		return result = mergeObj(obj1,obj2);
+	}
+
+	//feed it an array of json objects, returns formatted with title and value properties
+	function processMessages(msgs) {
+		resultArr = [];
+		for (var i = 0; i < msgs.length; i++) {
+
+			var formatObject = _.map(makeFlat(msgs[i]), function(value,key){
+				var result = {};
+				result.title = key;
+				result.value = value;
+				return result;
 			});
-			return result;
-		};
+			resultArr.push(formatObject);
+		}
+		return _.flatten(resultArr);
+	}
 
-		$scope.parsedMessages.push(makeMessageArray(parsed));
-	});
+	$scope.parsedMessages = processMessages($scope.messages);
 
 });
